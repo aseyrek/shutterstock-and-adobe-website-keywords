@@ -17,6 +17,12 @@ function getKeywords() {
     shutterDiv.prepend(keydiv);
 }
 
+getKeywords()
+
+
+// ------- END OF SHUTTERSTOCK CODE! -------
+
+
 // Code for adobestock...
 function getKeywords() {
     var keywords = [];
