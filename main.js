@@ -24,23 +24,42 @@ getKeywords()
 
 
 // Code for adobestock...
-function getKeywords() {
-    var keywords = [];
-    var keyList = document.querySelector('.column.on-small-12.on-medium-12.on-large-6.details-right-panel');
-    var x = document.querySelectorAll('#details-keywords span a.badge.badge--default.badge--large');
-    for (var i = 0; i < x.length; i++) {
-        keywords.push(x[i].innerText.trim());
-    }
-    var newKeys = keywords.join(', ');
-    var keydiv = document.createElement("div");
-    keydiv.style.paddingBottom = "2rem";
-    var keyTitle = document.createElement("p");
-    keyTitle.innerText = "Keywords:";
-    keydiv.innerText = newKeys;
-    keyTitle.style.fontWeight = "bold";
-    keydiv.prepend(keyTitle);
-    var keysDiv = document.querySelector('[data-t="keywords-section"]');
-    keysDiv.prepend(keydiv);
+window.onload = function(){
+  setTimeout(clickOnButton, 500);
 }
 
-getKeywords();
+function clickOnButton() {
+  document.querySelector('.js-keywords-see-all.badge.badge--default.badge--large.grey.nurse').click();
+  getKeywords();
+}
+
+function getKeywords() {
+    var keywords = [];
+    var keyList = document.querySelector('.details-right-panel');
+    var keydiv = document.createElement("div");
+    var x = document.querySelectorAll('#details-keywords span a.badge.badge--default.badge--large');
+    for (var i = 0; i < x.length; i++) {
+        keywords.push(x[i].textContent);
+    }
+    console.log(keywords);
+    var nospaceKeys = keywords.map(function(item){
+	    return item.replace(/\s+/g,' ');
+    });
+    console.log(nospaceKeys);
+    var uniqueKeys = [];
+    nospaceKeys.forEach(function(c) {
+      if (!uniqueKeys.includes(c)) {
+        uniqueKeys.push(c);
+      }
+    });
+    var uniqueKeysFinal = uniqueKeys.join(',');
+    var uniqueKeysLast = uniqueKeysFinal.split(/[ ,]+/).join(', ');
+    var slicedKeys = uniqueKeysLast.slice(1);
+    var slicedLastComma = slicedKeys.slice(0, -2);
+    console.log(slicedLastComma);
+    keydiv.innerText = slicedLastComma;
+    keyList.append(keydiv);
+}
+
+
+// ------- END OF ADOBE STOCK CODE! -------
